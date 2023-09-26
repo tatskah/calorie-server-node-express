@@ -5,7 +5,6 @@ const cors = require('cors');
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
-require("./app/routes/fooditems.routes")(app);
 
 var corsOptions = {
     origin: 'http://localhost:8081'
@@ -14,6 +13,8 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+require("./app/routes/fooditems.routes")(app);
 
 const db = require("./app/models");
 db.sequelize
