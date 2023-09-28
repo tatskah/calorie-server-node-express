@@ -26,7 +26,7 @@ db.foodcalendar = require("./clsFoodCalendar.model")(sequelize)
 
 
 
-// const calendar =  db.foodcalendar.findAll();
+const calendar = db.foodcalendar.findAll();
 // console.log(JSON.stringify(calendar));
 
 

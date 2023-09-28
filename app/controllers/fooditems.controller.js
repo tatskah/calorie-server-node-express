@@ -35,7 +35,7 @@ exports.create = (req, res) => {
 
 module.exports.findAll = (req, res) => {
     const name = req.query.name;
-    console.log("findAll");
+    
     var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
 
     FoodItems.findAll({ where: condition })

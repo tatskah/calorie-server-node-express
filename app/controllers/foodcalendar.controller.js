@@ -3,7 +3,7 @@ const FoodCalendar = db.foodcalendar
 const Op = db.Sequelize.Op
 
 module.exports.findAll = (req, res) => {
-    console.log('findAll')
+
     FoodCalendar.findAll({
         include: ['CalendarItems']
     })
@@ -14,8 +14,6 @@ module.exports.findAll = (req, res) => {
             res.status(500)
                 .send({ message: err.message } || "Failed to get food calendar items");
         })
-
-
 }
 
 module.exports.findById = (req, res) => {
