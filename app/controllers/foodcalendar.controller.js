@@ -5,7 +5,10 @@ const Op = db.Sequelize.Op
 module.exports.findAll = (req, res) => {
 
     FoodCalendar.findAll({
-        include: ['CalendarItems']
+        include: [{
+            association: 'CalendarItems',
+            required: false,
+          }],
     })
         .then(data => {
             res.send(data);
