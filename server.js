@@ -4,7 +4,8 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(require('connect').bodyParser());
 
 var corsOptions = {
     origin: 'http://localhost:8081'
