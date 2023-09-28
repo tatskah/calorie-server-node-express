@@ -42,12 +42,13 @@ module.exports = (sequelize, Sequelize) => {
         }
     }, {
         sequelize,
+        modelName: 'FoodItems',
         timestamps: true,
         tableName: 'food_items',
         createdAt: 'created_at',
         updatedAt: 'updated_at'
     });
-
+    
     return FoodItems
 }
 // kj;

@@ -26,10 +26,12 @@ module.exports = (sequelize, Sequelize) => {
         }
     }, {
         sequelize,
+        modelName: 'FoodCalendar',
         tableName: 'food_calendar',
         createdAt: 'created_at',
         updatedAt: 'updated_at'
     });
-
+    FoodCalendar.CalendarItems = FoodCalendar.hasMany(sequelize.models.CalendarItems) 
+    
     return FoodCalendar
 }

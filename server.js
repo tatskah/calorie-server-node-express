@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 require("./app/routes/fooditems.routes")(app);
+require("./app/routes/foodcalendar.routes")(app);
 
 const db = require("./app/models");
 db.sequelize

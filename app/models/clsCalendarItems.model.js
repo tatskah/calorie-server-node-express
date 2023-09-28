@@ -11,6 +11,10 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true
         },
+        FoodCalendarId: {
+            type: DataTypes.INTEGER,
+            field: 'foodcalendar_id'
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false
@@ -48,10 +52,11 @@ module.exports = (sequelize, Sequelize) => {
         }
     }, {
         sequelize,
+        modelName: 'CalendarItems',
         timestamps: true,
         tableName: 'calendar_items',
         createdAt: 'created_at',
-        updatedAt: 'updated_at'
+        updatedAt: 'updated_at',
     });
 
     return CalendarItems

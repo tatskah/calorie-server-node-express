@@ -33,7 +33,7 @@ exports.create = (req, res) => {
         });
 };
 
-exports.findAll = (req, res) => {
+module.exports.findAll = (req, res) => {
     const name = req.query.name;
     console.log("findAll");
     var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
