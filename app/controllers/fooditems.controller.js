@@ -27,15 +27,14 @@ exports.create = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message:
-                    err.message || "Error on create the fooditem."
+                message: err.message || "Error on create the fooditem."
             });
         });
 };
 
 module.exports.findAll = (req, res) => {
     const name = req.query.name;
-    
+
     var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
 
     FoodItems.findAll({ where: condition })
@@ -52,7 +51,7 @@ module.exports.findAll = (req, res) => {
 
 exports.findById = (req, res) => {
     const id = req.params.id;
-    console.log("findById");
+
     FoodItems.findByPk(id)
         .then(data => {
             if (data) {
@@ -71,9 +70,6 @@ exports.findById = (req, res) => {
 
 exports.update = (req, res) => {
     const id = req.params.id;
-    console.log("update");
-    // console.log(req.params);
-    // console.log("---- " + req.body.name);
     FoodItems.update(req.body, {
         where: { id: id }
     })
@@ -97,7 +93,6 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
     const id = req.params.id;
-    console.log("delete");
 
     FoodItems.destroy({
         where: { id: id }
