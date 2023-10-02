@@ -11,7 +11,7 @@ exports.create = (req, res) => {
         });
         return;
     }
-     
+    
     const fooditem = {
         name: req.body.name,
         kj: req.body.kj,
