@@ -4,7 +4,8 @@
   "description": "Calorie program node express backend",
   "main": "index.js",
   "scripts": {
-    "test": "mdspell **/*.md"
+    "test": "mdspell **/*.md",
+    "build": "npm run build"
   },
   "repository": {
     "type": "git",
