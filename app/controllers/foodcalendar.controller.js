@@ -32,4 +32,9 @@ module.exports.findById = (req, res) => {
             req.status(500).send({ message: err.message } || `Failed to get foodcalendar with id: ${id}`);
         });
 
+    module.exports.createFoodCalendar = (req, res) => {
+
+
+
+    }
 }
