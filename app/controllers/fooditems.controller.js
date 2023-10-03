@@ -2,7 +2,6 @@ const db = require("../models");
 const FoodItems = db.fooditems;
 const Op = db.Sequelize.Op
 
-
 exports.create = (req, res) => {
     if (!req.body.name) {
         console.log(req.body);
