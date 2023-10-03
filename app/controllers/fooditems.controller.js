@@ -10,7 +10,7 @@ exports.create = (req, res) => {
         });
         return;
     }
-    
+
     const fooditem = {
         name: req.body.name,
         kj: req.body.kj,
@@ -37,7 +37,7 @@ module.exports.findAll = (req, res) => {
 
     var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
 
-    FoodItems.findAll({ where: condition, order:['name'] })
+    FoodItems.findAll({ where: condition, order: ['name'] })
         .then(data => {
             res.send(data);
         })
