@@ -37,7 +37,7 @@ module.exports.findAll = (req, res) => {
 
     var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
 
-    FoodItems.findAll({ where: condition, order: ['name'] })
+    FoodItems.findAll({ where: condition, order: ['name'], limit:50 })
         .then(data => {
             res.send(data);
         })

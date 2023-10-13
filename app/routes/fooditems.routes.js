@@ -9,7 +9,7 @@ module.exports = (app) => {
     router.get("/:id", fooditems.findById);
 
     router.put("/:id", fooditems.update);
-
+    
     router.delete("/:id", fooditems.delete);
     
     app.use('/api/fooditems', router);

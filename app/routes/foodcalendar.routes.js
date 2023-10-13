@@ -4,6 +4,7 @@ module.exports = (app) => {
 
     router.get("/", foodcalendar.findAll);
     router.get('/:id', foodcalendar.findById);
+    router.post('/', foodcalendar.create);
 
     app.use('/api/foodcalendar', router);
 

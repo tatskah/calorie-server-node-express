@@ -1,0 +1,11 @@
+{
+    "gitConfigUser.selectedProfile": "TaseGit",
+    "gitlens.keymap": "none",
+    "vim.digraphs": {
+
+},
+"editor.cursorBlinking": "solid",
+"editor.cursorStyle": "line",
+"vim.cursorStylePerMode.insert": "line",
+"vim.cursorStylePerMode.normal": "line"
+}
