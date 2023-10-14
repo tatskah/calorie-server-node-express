@@ -5,15 +5,15 @@ module.exports = (sequelize, Sequelize) => {
     class CalendarItems extends Model { }
 
     CalendarItems.init({
-
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
-            primaryKey: true
+            primaryKey: true,
+            omitNull: true
         },
         FoodCalendarId: {
             type: DataTypes.INTEGER,
-            field: 'foodcalendar_id'
+            field: 'foodcalendar_id',
         },
         name: {
             type: DataTypes.STRING,
@@ -58,13 +58,7 @@ module.exports = (sequelize, Sequelize) => {
         createdAt: 'created_at',
         updatedAt: 'updated_at',
     });
-
+    
     return CalendarItems
 }
-// kj;
-// kcal;
-// fat;
-// carbohydrate;
-// protein;
-// updatedAt;
 

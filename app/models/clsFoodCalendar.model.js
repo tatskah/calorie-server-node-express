@@ -1,5 +1,4 @@
 const { DataTypes, Model, Deferrable } = require('sequelize');
-const clsFoodItemsModel = require('./clsFoodItems.model');
 
 module.exports = (sequelize, Sequelize) => {
 
@@ -32,8 +31,10 @@ module.exports = (sequelize, Sequelize) => {
         createdAt: 'created_at',
         updatedAt: 'updated_at'
     });
+    //,{foreignKey: 'foodcalendar_id', as: 'CalendarItems'}
     //FoodCalendar.CalendarItems = FoodCalendar.hasMany(sequelize.models.CalendarItems) 
-    FoodCalendar.hasMany(sequelize.models.CalendarItems);
-    
+    FoodCalendar.hasMany(sequelize.models.CalendarItems, { foreignKey: 'foodcalendar_id', allowNull: true });
+
+
     return FoodCalendar
 }
