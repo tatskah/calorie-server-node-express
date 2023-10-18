@@ -33,7 +33,7 @@ module.exports = (sequelize, Sequelize) => {
     });
     //,{foreignKey: 'foodcalendar_id', as: 'CalendarItems'}
     //FoodCalendar.CalendarItems = FoodCalendar.hasMany(sequelize.models.CalendarItems) 
-    FoodCalendar.hasMany(sequelize.models.CalendarItems, { foreignKey: 'foodcalendar_id', allowNull: true });
+    FoodCalendar.hasMany(sequelize.models.CalendarItems, { foreignKey: 'foodcalendar_id', allowNull: true, onDelete: 'CASCADE' });
 
 
     return FoodCalendar

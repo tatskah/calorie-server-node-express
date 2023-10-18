@@ -5,6 +5,8 @@ module.exports = (app) => {
     router.get("/", foodcalendar.findAll);
     router.get('/:id', foodcalendar.findById);
     router.post('/', foodcalendar.create);
+    router.delete('/:id', foodcalendar.delete);
+    router.delete('/item/:id', foodcalendar.deleteItem);
 
     app.use('/api/foodcalendar', router);
 

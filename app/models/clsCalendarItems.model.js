@@ -9,11 +9,12 @@ module.exports = (sequelize, Sequelize) => {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
-            omitNull: true
+            // omitNull: true,
         },
         FoodCalendarId: {
             type: DataTypes.INTEGER,
             field: 'foodcalendar_id',
+            onDelete: 'CASCADE'
         },
         name: {
             type: DataTypes.STRING,

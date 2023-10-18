@@ -1,3 +1,4 @@
+const { messaging } = require('firebase-admin');
 const db = require('../models');
 const FoodCalendar = db.foodcalendar;
 const CalendarItems = db.calendaritems;
@@ -8,8 +9,19 @@ module.exports.findAll = (req, res) => {
     FoodCalendar.findAll({
         include: [{
             association: 'CalendarItems',
-            required: false,
+            required: true,
         }],
+        attributes: {
+            include: [
+                [db.Sequelize.literal(`(SELECT SUM("calendar_items"."kcal") FROM "calendar_items" WHERE "calendar_items"."foodcalendar_id"="FoodCalendar"."id")`), 'kcal_sum'],
+                [db.Sequelize.literal(`(SELECT SUM("calendar_items"."kj")  FROM "calendar_items" WHERE "calendar_items"."foodcalendar_id"="FoodCalendar"."id")`), 'kj_sum'],
+                [db.Sequelize.literal(`(SELECT SUM("calendar_items"."fat")  FROM "calendar_items" WHERE "calendar_items"."foodcalendar_id"="FoodCalendar"."id")`), 'fat_sum'],
+                [db.Sequelize.literal(`(SELECT SUM("calendar_items"."protein")  FROM "calendar_items" WHERE "calendar_items"."foodcalendar_id"="FoodCalendar"."id")`), 'protein_sum'],
+                [db.Sequelize.literal(`(SELECT SUM("calendar_items"."piece")  FROM "calendar_items" WHERE "calendar_items"."foodcalendar_id"="FoodCalendar"."id")`), 'piece_sum'],
+                [db.Sequelize.literal(`(SELECT SUM("calendar_items"."carbohydrate")  FROM "calendar_items" WHERE "calendar_items"."foodcalendar_id"="FoodCalendar"."id")`), 'carbohydrate_sum']
+            ],
+        }
+        ,
         order: [['add_date', 'DESC']]
     })
         .then(data => {
@@ -37,7 +49,7 @@ module.exports.findById = (req, res) => {
 }
 module.exports.create = async (req, res) => {
 
-    // CalendarItems.belongsTo(db.sequelize.models.FoodCalendar)
+    CalendarItems.belongsTo(db.sequelize.models.FoodCalendar)
 
     if (!req.body.add_date) {
         console.log(req.body);
@@ -46,7 +58,6 @@ module.exports.create = async (req, res) => {
         });
         return;
     }
-    const { add_date, name, piece, gram, kj, kcal, carbohydrate, protein, fat } = req.body;
     const fooditem_ids = req.body.fooditem_ids.split(",").map(Number);
     const grams = req.body.grams.split(",").map(Number);
     const pieces = req.body.pieces.split(",").map(Number);
@@ -71,14 +82,11 @@ module.exports.create = async (req, res) => {
         calendarItemsArr.push(item);
     };
 
-
     const foodcalendar = {
         id: maxID,
         add_date: req.body.add_date,
-        CalendarItems: [calendarItemsArr]
+        // CalendarItems: [calendarItemsArr]
     };
-
-
 
     const new_foodcalendar = await FoodCalendar.create(foodcalendar)
         .then(data => {
@@ -96,4 +104,52 @@ module.exports.create = async (req, res) => {
         const cal_items = new CalendarItems(element);
         await cal_items.save();
     };
+}
+
+module.exports.delete = async (req, res) => {
+    const id = req.params.id
+    CalendarItems.belongsTo(db.sequelize.models.FoodCalendar, { onDelete: 'CASCADE', foreignKey: { allowNull: false }, hooks: true })
+    if (!id) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+        return;
+    }
+
+    const child_delete = await CalendarItems.destroy({ where: { foodcalendar_id: id } })
+
+    FoodCalendar.destroy({ where: { id: id } })
+        .then(num => {
+            if (num == 1) {
+                res.send({ message: "FoodCalendar deleted" });
+            } else {
+                res.send({ message: `Foodcalendar delete failed. Maybe calendar with id:${id} NOT exists` });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({ message: err.message } || `Failed to delete with id: ${id}`)
+        })
+}
+
+module.exports.deleteItem = async (req, res) => {
+    const id = req.params.id
+
+    if (!id) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+        return;
+    }
+    console.log(id);
+    CalendarItems.destroy({ where: { id: id } })
+        .then(num => {
+            if (num == 1) {
+                res.send({ message: "FoodCalendar item deleted" });
+            } else {
+                res.send({ message: `Foodcalendar item delete failed. Maybe item with id:${id} NOT exists` });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({ message: err.message } || `Failed to delete with id: ${id}`)
+        })
 }

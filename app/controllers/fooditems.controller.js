@@ -37,7 +37,7 @@ module.exports.findAll = (req, res) => {
 
     var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
 
-    FoodItems.findAll({ where: condition, order: ['name'], limit:50 })
+    FoodItems.findAll({ where: condition, order: ['name'], limit: 50 })
         .then(data => {
             res.send(data);
         })
@@ -94,9 +94,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    FoodItems.destroy({
-        where: { id: id }
-    })
+    FoodItems.destroy({ where: { id: id } })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -113,7 +111,7 @@ exports.delete = (req, res) => {
                 message: "Could not delete fooditem with id=" + id
             });
         });
-};
+}
 
 exports.deleteAll = (req, res) => {
 
