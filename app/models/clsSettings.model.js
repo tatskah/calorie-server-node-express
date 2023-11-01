@@ -2,9 +2,9 @@ const { DataTypes, Model } = require('sequelize');
 
 module.exports = (sequelize) => {
 
-    class FoodItems extends Model { }
+    class Settings extends Model { }
 
-    FoodItems.init({
+    Settings.init({
 
         id: {
             type: DataTypes.INTEGER,
@@ -15,23 +15,9 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        kj: {
-            type: DataTypes.DOUBLE,
-        },
-        kcal: {
-            type: DataTypes.DOUBLE,
-        },
-        fat: {
-            type: DataTypes.DOUBLE,
-        },
-        carbohydrate: {
-            type: DataTypes.DOUBLE,
-        },
-        protein: {
-            type: DataTypes.DOUBLE,
-        },
-        favorite: {
-            type: DataTypes.BOOLEAN
+        value: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
         created_at: {
             type: 'TIMESTAMP',
@@ -43,21 +29,13 @@ module.exports = (sequelize) => {
             defaultValue: Date.NOW,
             allowNull: false
         }
-    }, {
+    },{
         sequelize,
-        modelName: 'FoodItems',
+        modelName: 'Settings',
         timestamps: true,
-        tableName: 'food_items',
+        tableName: 'settings',
         createdAt: 'created_at',
         updatedAt: 'updated_at'
     });
-    
-    return FoodItems
+    return Settings;
 }
-// kj;
-// kcal;
-// fat;
-// carbohydrate;
-// protein;
-// updatedAt;
-

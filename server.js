@@ -8,7 +8,11 @@ const app = express();
 // app.use(require('connect').bodyParser());
 
 var corsOptions = {
-    origin: ['http://localhost:3000', 'http://localhost:5173']
+    origin: ['http://localhost:3000', 
+             'http://localhost:5173', 
+             'http://localhost:8081',
+             'http://localhost:51968',
+             ]
 };
 
 app.use(cors(corsOptions));
@@ -23,6 +27,7 @@ app.use(function (req, res, next) {
 
 require("./app/routes/fooditems.routes")(app);
 require("./app/routes/foodcalendar.routes")(app);
+require("./app/routes/settings.routes")(app);
 
 const db = require("./app/models");
 const { TIME } = require('sequelize');

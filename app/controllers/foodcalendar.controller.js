@@ -9,7 +9,7 @@ module.exports.findAll = (req, res) => {
     FoodCalendar.findAll({
         include: [{
             association: 'CalendarItems',
-            required: true,
+            required: false,
         }],
         attributes: {
             include: [
@@ -99,7 +99,6 @@ module.exports.create = async (req, res) => {
     for (element of calendarItemsArr) {
         const ret = await db.sequelize.query('SELECT MAX(id)+1 AS id FROM calendar_items', { raw: true, type: db.Sequelize.QueryTypes.SELECT })
         const maxIDItem = ret[0].id;
-        console.log(maxIDItem);
         element.id = maxIDItem;
         const cal_items = new CalendarItems(element);
         await cal_items.save();
@@ -140,7 +139,7 @@ module.exports.deleteItem = async (req, res) => {
         });
         return;
     }
-    console.log(id);
+
     CalendarItems.destroy({ where: { id: id } })
         .then(num => {
             if (num == 1) {

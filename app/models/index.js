@@ -19,10 +19,10 @@ const db = {}
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.fooditems = require("./clsFoodItems.model")(sequelize)
-db.calendaritems = require("./clsCalendarItems.model")(sequelize)
-db.foodcalendar = require("./clsFoodCalendar.model")(sequelize)
-
+db.fooditems = require("./clsFoodItems.model")(sequelize);
+db.calendaritems = require("./clsCalendarItems.model")(sequelize);
+db.foodcalendar = require("./clsFoodCalendar.model")(sequelize);
+db.settings = require('./clsSettings.model')(sequelize);
 
 
 module.exports = db;

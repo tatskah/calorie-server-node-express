@@ -18,7 +18,7 @@ exports.create = (req, res) => {
         fat: req.body.fat,
         carbohydrate: req.body.carbohydrate,
         protein: req.body.protein,
-        description: req.body.description,
+        favorite: req.body.favorite
     };
 
     FoodItems.create(fooditem)
@@ -37,7 +37,7 @@ module.exports.findAll = (req, res) => {
 
     var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
 
-    FoodItems.findAll({ where: condition, order: ['name'], limit: 50 })
+    FoodItems.findAll({ where: condition, order: [[db.Sequelize.literal('favorite DESC')],['name']], limit: 100 })
         .then(data => {
             res.send(data);
         })
@@ -57,9 +57,8 @@ exports.findById = (req, res) => {
             if (data) {
                 res.send(data);
             } else {
-                res.status(404).send({
-                    message: `Did not find food item with id ${id}`
-                });
+                res
+                .send({ message: `Did not find food item with id ${id}` });
             }
         })
         .catch(err => {
@@ -70,6 +69,7 @@ exports.findById = (req, res) => {
 
 exports.update = (req, res) => {
     const id = req.params.id;
+    console.log(req.body);
     FoodItems.update(req.body, {
         where: { id: id }
     })
