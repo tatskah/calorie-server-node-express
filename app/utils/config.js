@@ -1,8 +1,7 @@
-require('dotenv').config()
+require("dotenv").config();
 
-const PORT = process.env.PORT || 8080
-// const MONGODB_URI = process.env.MONGODB_URI
+const PORT = process.env.PORT || 8080;
 
 module.exports = {
-  PORT
-}
+  PORT,
+};
